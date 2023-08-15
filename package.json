@@ -1,0 +1,32 @@
+{
+  "name": "velixs-md",
+  "version": "3.2.6",
+  "description": "Multi Session Whatsapp Library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ilsya",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.2.1",
+    "mime": "^3.0.0",
+    "pino": "^8.11.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ilsyaa/velixs-md.git"
+  },
+  "devDependencies": {
+    "@types/mime": "^3.0.1"
+  }
+}
