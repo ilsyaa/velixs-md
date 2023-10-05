@@ -10,7 +10,7 @@ import path from "path";
 import { Boom } from "@hapi/boom";
 import fs from "fs";
 import type { MessageReceived, StartSessionParams } from "../Types";
-import { CALLBACK_KEY, CREDENTIALS, Messages } from "../Defaults";
+import { CALLBACK_KEY, CREDENTIALS, Messages, BROWSERS_DISPLAY } from "../Defaults";
 import {
   saveDocumentHandler,
   saveImageHandler,
@@ -37,13 +37,25 @@ export const startSession = async (
     const { state, saveCreds } = await useMultiFileAuthState(
       path.resolve(CREDENTIALS.DIR_NAME, sessionId + CREDENTIALS.PREFIX)
     );
+    let browser_end = Browsers.macOS(["VelixS", "Safari", "3.0"])
+    switch(BROWSERS_DISPLAY.BROWSERS){
+      case "macOS":
+        browser_end = Browsers.macOS(["VelixS", "Safari", "3.0"])
+        break
+      case "Ubuntu":
+        browser_end = Browsers.ubuntu(["VelixS", "Chromium", "3.0"])
+        break
+      default:
+          browser_end = [BROWSERS_DISPLAY.BROWSERS ?? "VelixS", "Safari", "3.0"]
+          break
+    }
     const sock: WASocket = makeWASocket({
       version,
       printQRInTerminal: options.printQR,
       auth: state,
       logger,
       markOnlineOnConnect: false,
-      browser: Browsers.ubuntu("Chrome"),
+      browser: browser_end,
     });
     sessions.set(sessionId, { ...sock });
     try {

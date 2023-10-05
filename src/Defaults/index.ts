@@ -11,6 +11,10 @@ export enum CALLBACK_KEY {
   ON_CONNECTING = "on-connecting",
 }
 
+export abstract class BROWSERS_DISPLAY {
+  static BROWSERS: string = "VelixS";
+}
+
 export abstract class Messages {
   static sessionAlreadyExist = (sessionId: string): string =>
     `Session ID :${sessionId} is already exist, Try another Session ID.`;

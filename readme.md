@@ -209,6 +209,13 @@ whatsapp.setCredentialsDir("my_custom_dir");
 // or : credentials/mycreds
 ```
 
+Set custom Browser
+```ts
+// default browser is VelixS
+whatsapp.setBrowser("macOS");
+// or : custom your name
+```
+
 ## Authors
 
 - [@ilsyaa](https://www.github.com/ilsyaa)
