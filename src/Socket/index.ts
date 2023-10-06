@@ -42,9 +42,6 @@ export const startSession = async (
       case "macOS":
         browser_end = Browsers.macOS(["VelixS", "Safari", "3.0"])
         break
-      case "Ubuntu":
-        browser_end = Browsers.ubuntu(["VelixS", "Chromium", "3.0"])
-        break
       default:
           browser_end = [BROWSERS_DISPLAY.BROWSERS ?? "VelixS", "Safari", "3.0"]
           break
@@ -99,6 +96,12 @@ export const startSession = async (
         if (events["creds.update"]) {
           await saveCreds();
         }
+        if (events['group-participants.update']) {
+          const { id, participants, action } = events['group-participants.update']
+          callback.get(CALLBACK_KEY.ON_GROUP_PARTICIPANTS_UPDATED)?.({
+            id, participants, action
+          });
+        }
         if (events["messages.upsert"]) {
           const msg = events["messages.upsert"]
             .messages?.[0] as unknown as MessageReceived;
@@ -107,7 +110,7 @@ export const startSession = async (
           msg.saveVideo = (path) => saveVideoHandler(msg, path);
           msg.saveDocument = (path) => saveDocumentHandler(msg, path);
           callback.get(CALLBACK_KEY.ON_MESSAGE_RECEIVED)?.({
-            ...msg,
+            ...msg, ...sock
           });
         }
       });
@@ -208,4 +211,7 @@ export const onDisconnected = (listener: (sessionId: string) => any) => {
 };
 export const onConnecting = (listener: (sessionId: string) => any) => {
   callback.set(CALLBACK_KEY.ON_CONNECTING, listener);
+};
+export const onGroupParticipantsUpdated = (listener: (id: string, participants: string[], action: string) => any) => {
+  callback.set(CALLBACK_KEY.ON_GROUP_PARTICIPANTS_UPDATED, listener);
 };

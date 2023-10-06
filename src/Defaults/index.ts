@@ -9,6 +9,7 @@ export enum CALLBACK_KEY {
   ON_CONNECTED = "on-connected",
   ON_DISCONNECTED = "on-disconnected",
   ON_CONNECTING = "on-connecting",
+  ON_GROUP_PARTICIPANTS_UPDATED = "on-group-participants-updated",
 }
 
 export abstract class BROWSERS_DISPLAY {
